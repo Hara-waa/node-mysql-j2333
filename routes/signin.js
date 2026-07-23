@@ -26,7 +26,6 @@ router.post('/', function (req, res, next) {
     .then((results) => {
       if (results.length === 0) {
         res.render("signin", {
-          isAuth: isAuth,
           title: "Sign in",
           errorMessage: ["ユーザが見つかりません"],
         });
