@@ -4,16 +4,14 @@ const knex = require("../db/knex");
 const bcrypt = require("bcrypt");
 
 router.get('/', function (req, res, next) {
-  const userId = req.session.userid;
-  const isAuth = Boolean(userId);
+  const isAuth = Boolean(req.session.userid || (req.user && req.user.id));
   res.render('signup', {
     title: 'Sign up',
     isAuth: isAuth,
   });
 });
 router.post('/', function (req, res, next) {
-  const userId = req.session.userid;
-  const isAuth = Boolean(userId);
+  const isAuth = Boolean(req.session.userid || (req.user && req.user.id));
   const username = req.body.username;
   const password = req.body.password;
   const repassword = req.body.repassword;
