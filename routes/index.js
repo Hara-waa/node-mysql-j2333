@@ -3,8 +3,7 @@ const router = express.Router();
 const knex = require('../db/knex');
 
 router.get('/', function (req, res, next) {
-  const userId = req.session.userid;
-  const isAuth = Boolean(userId);
+  const isAuth = Boolean(req.session.userid || (req.user && req.user.id));
   knex("tasks")
     .select("*")
     .then(function (results) {
@@ -24,8 +23,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const userId = req.session.userid;
-  const isAuth = Boolean(userId);
+  const isAuth = Boolean(req.session.userid || (req.user && req.user.id));
   const todo = req.body.add;
   knex("tasks")
     .insert({user_id: 1, content: todo})

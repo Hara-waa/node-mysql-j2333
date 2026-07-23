@@ -8,17 +8,19 @@ const secret = "secretCuisine123";
 
 module.exports = function (app) {
   passport.serializeUser(function (user, done) {
+    console.log("serializeUser");
     done(null, user.id);
   });
 
   passport.deserializeUser(async function (id, done) {
-    try {
-      const user = await User.findById(id);
-      done(null, user);
-    } catch (error) {
-      done(error, null);
-    }
-  });
+ console.log("deserializeUser");
+ try {
+ const user = await User.findById(id);
+ done(null, user);
+ } catch (error) {
+ done(error, null);
+ }
+});
 
   passport.use(new LocalStrategy({
       usernameField: "username",
@@ -51,9 +53,11 @@ module.exports = function (app) {
       keys: [secret],
 
       // Cookie Options
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      maxAge: 24 * 60 * 60 * 1000,
     })
   );
 
+
+  app.use(passport.initialize());
   app.use(passport.session());
 };
