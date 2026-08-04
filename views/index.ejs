@@ -8,6 +8,12 @@
 <body>
 <%- include('./header'); %>
 <%- include('./error_messages'); %>
+<style>
+  .todo-text.checked {
+    text-decoration: line-through;
+    color: #888;
+  }
+</style>
 <% if(isAuth) { %>
  <div class="container">
   <div class="row">
@@ -21,7 +27,13 @@
     <div class="col-md-6">
       <ul>
         <% for(let todo of todos){ %>
-          <li><span><%= todo.content %></span></li>
+          <li style="display:flex; align-items:center; gap:8px;">
+            <form action="/delete" method="post" style="display:inline; margin:0;">
+              <input type="hidden" name="id" value="<%= todo.id %>" />
+              <input type="checkbox" class="delete-checkbox" />
+            </form>
+            <span class="todo-text"><%= todo.content %></span>
+          </li>
         <% } %>
       </ul>
     </div>
@@ -40,5 +52,26 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.delete-checkbox').forEach(function (checkbox) {
+      const todoText = checkbox.closest('li').querySelector('.todo-text');
+
+      checkbox.addEventListener('change', function () {
+        if (this.checked) {
+          this.setAttribute('data-checked', 'true');
+          todoText.classList.add('checked');
+          return;
+        }
+
+        if (this.getAttribute('data-checked') === 'true') {
+          this.closest('form').submit();
+        } else {
+          todoText.classList.remove('checked');
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
