@@ -4,24 +4,31 @@
   <title><%= title %></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-<body>
+<body class="auth-page">
 <%- include('./header'); %>
 <%- include('./error_messages'); %>
-<div class="container">
-  <form action="/signup" method="post">
-    <label>ユーザ名</label>
-    <input required type="text" name="username"/>
-    <br>
-    <label>パスワード</label>
-    <input required type="password" name="password"/>
-    <br>
-    <label>パスワード再入力</label>
-    <input required type="text" name="repassword"/>
-    <br>
-    <button class="btn btn-primary" type="submit">Sign up now!</button>
-  </form>
-</div>
+<main class="auth-panel">
+        <div class="auth-kicker">TodoApp account</div>
+        <h1>Create account</h1>
+        <p class="auth-subtitle">新しいアカウントを作って、タスクをすっきり整理しましょう。</p>
+        <form class="auth-form" action="/signup" method="post">
+                <div class="form-group">
+                        <label for="signup-username">ユーザ名</label>
+                        <input id="signup-username" class="form-control" required type="text" name="username" autocomplete="username"/>
+                </div>
+                <div class="form-group">
+                        <label for="signup-password">パスワード</label>
+                        <input id="signup-password" class="form-control" required type="password" name="password" autocomplete="new-password"/>
+                </div>
+                <div class="form-group">
+                        <label for="signup-repassword">パスワード再入力</label>
+                        <input id="signup-repassword" class="form-control" required type="password" name="repassword" autocomplete="new-password"/>
+                </div>
+                <button class="btn btn-primary" type="submit">Sign up now!</button>
+        </form>
+</main>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
