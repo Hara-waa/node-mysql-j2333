@@ -1,6 +1,6 @@
 <% if (typeof errorMessage === 'undefined') { var errorMessage = []; } %>
 <% if(errorMessage.length != 0){ %>
-  <div>
+  <div class="auth-error">
     <strong>Warning!</strong> The form contains <%= errorMessage.length %> errors.
   </div>
   <div>
